@@ -21,4 +21,6 @@ spec:
             - containerPort: 3000
           envFrom:
             - configMapRef:
+                name: api-config
+            - secretRef:
                 name: api-secret
