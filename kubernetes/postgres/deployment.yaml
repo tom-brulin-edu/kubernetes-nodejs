@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postgres
+  labels:
+    app: postgres
 spec:
   replicas: 1
   selector:
@@ -23,8 +25,9 @@ spec:
                 name: postgres-secret
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgresdata
+              name: postgresql-persistent-storage
       volumes:
-        - name: postgresdata
-          persistentVolumeClaim:
-            claimName: postgres-volume-claim
+        - name: postgresql-persistent-storage
+          hostPath:
+            path: /run/desktop/mnt/host/c/kubernetes/postgresql
+            type: DirectoryOrCreate
