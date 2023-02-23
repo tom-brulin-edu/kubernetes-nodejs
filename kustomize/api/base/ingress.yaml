@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-api
+  annotations:
+    api.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: api
+  rules:
+  - host: api.localdev.me
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: api
+            port:
+              number: 3000
